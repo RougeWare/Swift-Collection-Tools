@@ -1,8 +1,9 @@
 //
 //  Collection + everyPair.swift
-//  
+//  CollectionTools
 //
 //  Created by Ben Leggiero on 2020-06-20.
+//  Copyright © 2020 Ben Leggiero BH-1-PS
 //
 
 import Foundation
