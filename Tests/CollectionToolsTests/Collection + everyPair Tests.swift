@@ -53,7 +53,7 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     func test_mapEveryPairWithoutDuplicates() {
         let testString = "Lorem"
         XCTAssertEqual(testString.mapEveryPairWithoutDuplicates { String([$0.0, $0.1]) }, [
-            "Lo", "Lr", "Le", "Lm",
+                  "Lo", "Lr", "Le", "Lm",
             "oL",       "or", "oe", "om",
             "rL", "ro",       "re", "rm",
             "eL", "eo", "er",       "em",
