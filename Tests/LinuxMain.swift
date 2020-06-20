@@ -1,7 +1,7 @@
 import XCTest
-
 import CollectionToolsTests
 
-var tests = [XCTestCaseEntry]()
-tests += CollectionToolsTests.allTests()
-XCTMain(tests)
+XCTMain([
+    Collection_plus_everyPair_Tests.allTests,
+    CollectionWhichCanBeEmpty_Tests.allTests,
+])
