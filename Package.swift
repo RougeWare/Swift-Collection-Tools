@@ -22,7 +22,7 @@ let package = Package(
     
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "FunctionTools", url: "https://github.com/RougeWare/Swift-Function-Tools", from: "1.1.0"),
+        .package(name: "FunctionTools", url: "https://github.com/RougeWare/Swift-Function-Tools", from: "1.2.0"),
     ],
     
     targets: [

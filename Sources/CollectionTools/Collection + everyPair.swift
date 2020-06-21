@@ -36,16 +36,37 @@ public extension Collection {
     /// - Parameter mapper: The function which maps each pair of elements to a new collection
     /// - Returns: A new collection of the elements you transformed this one into
     func mapEveryPair
-        <ProcessedElement, ProcessedCollection>
-        (_ mapper: Transformer<(Element, Element), ProcessedElement>)
-        -> ProcessedCollection
-        where ProcessedCollection: RangeReplaceableCollection,
-            ProcessedCollection: CollectionWhichCanBeEmpty,
-            ProcessedCollection.Element == ProcessedElement
+        <ProcessedElement>
+        (_ mapper: @escaping Transformer<(Element, Element), ProcessedElement>)
+        -> EveryPairMapped<ProcessedElement>
     {
-        everyPair.reduce(into: .init()) { (result, element) in
-            result.append(mapper(element))
-        }
+        everyPair.map(mapper)
+    }
+    
+    
+    /// Turns this collection into a lazy sequence of every element paired up with every other element
+    ///
+    /// - Parameter equator: The function which will define equality
+    func everyPairWithoutDuplicates(equatingBy equator: @escaping Transformer<(Element, Element), Bool>) -> EveryPairWithoutDuplicates {
+        everyPair.filter(!equator)
+    }
+    
+    
+    /// Pairs up every element with every other element and passes them to the given transformer, resulting in a
+    /// collection of the transformed elements
+    ///
+    /// - Parameter mapper: The function which maps each pair of elements to a new collection
+    /// - Returns: A new collection of the elements you transformed this one into
+    func mapEveryPairWithoutDuplicates
+        <ProcessedElement>
+        (
+            equatingBy equator: @escaping Transformer<(Element, Element), Bool>,
+            _ mapper: @escaping Transformer<(Element, Element), ProcessedElement>
+        )
+        -> EveryPairWithoutDuplicatesMapped<ProcessedElement>
+    {
+        everyPairWithoutDuplicates(equatingBy: equator)
+            .map(mapper)
     }
     
     
@@ -69,6 +90,9 @@ public extension Collection {
     
     
     typealias EveryPair = LazySequence<EveryPairBase>
+    typealias EveryPairMapped<ProcessedElement> = LazyMapSequence<EveryPairBase, ProcessedElement>
+    typealias EveryPairWithoutDuplicates = LazyFilterSequence<EveryPairBase>
+    typealias EveryPairWithoutDuplicatesMapped<ProcessedElement> = LazyMapSequence<EveryPairWithoutDuplicates, ProcessedElement>
 }
 
 
@@ -87,19 +111,11 @@ public extension Collection where Element: Equatable {
     /// - Parameter mapper: The function which maps each pair of elements to a new collection
     /// - Returns: A new collection of the elements you transformed this one into
     func mapEveryPairWithoutDuplicates
-        <ProcessedElement, ProcessedCollection>
-        (_ mapper: Transformer<(Element, Element), ProcessedElement>)
-        -> ProcessedCollection
-        where ProcessedCollection: RangeReplaceableCollection,
-            ProcessedCollection: CollectionWhichCanBeEmpty,
-            ProcessedCollection.Element == ProcessedElement
+        <ProcessedElement>
+        (_ mapper: @escaping Transformer<(Element, Element), ProcessedElement>)
+        -> EveryPairWithoutDuplicatesMapped<ProcessedElement>
     {
-        everyPairWithoutDuplicates.reduce(into: .init()) { (result, element) in
-            result.append(mapper(element))
-        }
+        everyPairWithoutDuplicates
+            .map(mapper)
     }
-    
-    
-    
-    typealias EveryPairWithoutDuplicates = LazyFilterSequence<EveryPairBase>
 }
