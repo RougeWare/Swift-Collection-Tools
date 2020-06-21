@@ -16,7 +16,7 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     
     func test_everyPair() {
         let testString = "Lorem"
-        XCTAssertEqual(Array(testString.everyPair.map { String([$0.0, $0.1]) }), [
+        XCTAssertEqual(Array(testString.everyPair.map { "\($0.0)\($0.1)" }), [
             "LL", "Lo", "Lr", "Le", "Lm",
             "oL", "oo", "or", "oe", "om",
             "rL", "ro", "rr", "re", "rm",
@@ -28,7 +28,7 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     
     func test_everyPairWithoutDuplicates() {
         let testString = "Lorem"
-        XCTAssertEqual(Array(testString.everyPairWithoutDuplicates.map { String([$0.0, $0.1]) }), [
+        XCTAssertEqual(Array(testString.everyPairWithoutDuplicates.map { "\($0.0)\($0.1)" }), [
                   "Lo", "Lr", "Le", "Lm",
             "oL",       "or", "oe", "om",
             "rL", "ro",       "re", "rm",
@@ -40,7 +40,7 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     
     func test_mapEveryPair() {
         let testString = "Lorem"
-        XCTAssertEqual(testString.mapEveryPair { String([$0.0, $0.1]) }, [
+        XCTAssertEqual(Array(testString.mapEveryPair { "\($0.0)\($0.1)" }), [
             "LL", "Lo", "Lr", "Le", "Lm",
             "oL", "oo", "or", "oe", "om",
             "rL", "ro", "rr", "re", "rm",
@@ -52,12 +52,39 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     
     func test_mapEveryPairWithoutDuplicates() {
         let testString = "Lorem"
-        XCTAssertEqual(testString.mapEveryPairWithoutDuplicates { String([$0.0, $0.1]) }, [
+        XCTAssertEqual(Array(testString.mapEveryPairWithoutDuplicates { "\($0.0)\($0.1)" }), [
                   "Lo", "Lr", "Le", "Lm",
             "oL",       "or", "oe", "om",
             "rL", "ro",       "re", "rm",
             "eL", "eo", "er",       "em",
             "mL", "mo", "mr", "me",
+        ])
+        
+        
+        
+        struct KindaEquatable {
+            let value: Int
+        }
+        
+        
+        
+        let testKindaEquatableArray = [
+            KindaEquatable(value: 1),
+            KindaEquatable(value: 2),
+            KindaEquatable(value: 3),
+            KindaEquatable(value: 4),
+        ]
+        
+        let x = testKindaEquatableArray.mapEveryPairWithoutDuplicates(
+            equatingBy: { $0.value == $1.value },
+            { "\($0.value)\($1.value)" }
+        )
+        
+        XCTAssertEqual(Array(x), [
+                  "12", "13", "14",
+            "21",       "23", "24",
+            "31", "32",       "34",
+            "41", "42", "43",
         ])
     }
     
