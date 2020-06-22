@@ -89,6 +89,16 @@ final class Collection_plus_everyPair_Tests: XCTestCase {
     }
     
     
+    func test_reduceEveryPair() {
+        let testString = "Lorem"
+        
+        XCTAssertEqual(testString.reduceEveryPair(into: .init(), { (newString, (letterA, letterB)) in
+            
+        }),
+                       "")
+    }
+    
+    
     static var allTests = [
         ("test_everyPair", test_everyPair),
         ("test_everyPairWithoutDuplicates", test_everyPairWithoutDuplicates),

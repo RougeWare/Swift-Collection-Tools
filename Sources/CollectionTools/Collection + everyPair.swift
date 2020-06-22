@@ -11,6 +11,35 @@ import FunctionTools
 
 
 
+// MARK: - Lazy types
+
+public extension Collection {
+    typealias EveryPairBase = FlattenSequence<
+        LazyMapSequence<
+            LazyMapSequence<
+                Self,
+                LazyMapSequence<
+                    Self,
+                    (Element, Element)
+                >
+            >,
+            LazyMapSequence<
+                Self,
+                (Element, Element)
+            >
+        >
+    >
+    
+    
+    
+    typealias EveryPair = LazySequence<EveryPairBase>
+    typealias EveryPairMapped<ProcessedElement> = LazyMapSequence<EveryPairBase, ProcessedElement>
+    typealias EveryPairWithoutDuplicates = LazyFilterSequence<EveryPairBase>
+    typealias EveryPairWithoutDuplicatesMapped<ProcessedElement> = LazyMapSequence<EveryPairWithoutDuplicates, ProcessedElement>
+}
+
+
+
 // MARK: - Collect
 
 public extension Collection {
@@ -76,31 +105,34 @@ public extension Collection {
         everyPairWithoutDuplicates(equatingBy: equator)
             .map(mapper)
     }
+}
+
+
+
+// MARK: - Reduce
+
+public extension Collection {
     
-    
-    
-    typealias EveryPairBase = FlattenSequence<
-        LazyMapSequence<
-            LazyMapSequence<
-                Self,
-                LazyMapSequence<
-                    Self,
-                    (Element, Element)
-                >
-            >,
-            LazyMapSequence<
-                Self,
-                (Element, Element)
-            >
-        >
-    >
-    
-    
-    
-    typealias EveryPair = LazySequence<EveryPairBase>
-    typealias EveryPairMapped<ProcessedElement> = LazyMapSequence<EveryPairBase, ProcessedElement>
-    typealias EveryPairWithoutDuplicates = LazyFilterSequence<EveryPairBase>
-    typealias EveryPairWithoutDuplicatesMapped<ProcessedElement> = LazyMapSequence<EveryPairWithoutDuplicates, ProcessedElement>
+    /// Pairs up every element with every element and passes them to the given transformer, resulting in a collection
+    /// of the transformed elements
+    ///
+    /// - Note: Since this doesn't require the elements to be `Equatable`, each element will also be paired up with
+    ///         itself once. If you don't want this, use `mapEveryPairWithoutDuplicates`
+    ///
+    /// - Parameter mapper: The function which maps each pair of elements to a new collection
+    /// - Returns: A new collection of the elements you transformed this one into
+    func reduceEveryPair
+        <Result>
+        (
+            into initial: Result,
+            _ reducer: @escaping (_ result: inout Result, _ pair: (Element, Element)) -> Void
+        )
+        -> Result
+    {
+        everyPair.reduce(into: initial) { new, pair in
+            reducer(&new, pair)
+        }
+    }
 }
 
 
