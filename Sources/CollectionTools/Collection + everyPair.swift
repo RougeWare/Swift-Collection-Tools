@@ -11,6 +11,8 @@ import FunctionTools
 
 
 
+// MARK: - Collect
+
 public extension Collection {
     
     /// Turns this collection into a lazy sequence of every element paired up with every element.
@@ -27,6 +29,20 @@ public extension Collection {
     }
     
     
+    /// Turns this collection into a lazy sequence of every element paired up with every other element
+    ///
+    /// - Parameter equator: The function which will define equality
+    func everyPairWithoutDuplicates(equatingBy equator: @escaping Transformer<(Element, Element), Bool>) -> EveryPairWithoutDuplicates {
+        everyPair.filter(!equator)
+    }
+}
+
+
+
+// MARK: - Map
+
+public extension Collection {
+    
     /// Pairs up every element with every element and passes them to the given transformer, resulting in a collection
     /// of the transformed elements
     ///
@@ -41,14 +57,6 @@ public extension Collection {
         -> EveryPairMapped<ProcessedElement>
     {
         everyPair.map(mapper)
-    }
-    
-    
-    /// Turns this collection into a lazy sequence of every element paired up with every other element
-    ///
-    /// - Parameter equator: The function which will define equality
-    func everyPairWithoutDuplicates(equatingBy equator: @escaping Transformer<(Element, Element), Bool>) -> EveryPairWithoutDuplicates {
-        everyPair.filter(!equator)
     }
     
     
@@ -96,6 +104,8 @@ public extension Collection {
 }
 
 
+
+// MARK: - Equatable
 
 public extension Collection where Element: Equatable {
     
