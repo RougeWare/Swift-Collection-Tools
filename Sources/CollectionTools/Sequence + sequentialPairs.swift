@@ -1,5 +1,5 @@
 //
-//  Collection + sequentialPairs.swift
+//  Sequence + sequentialPairs.swift
 //  
 //
 //  Created by Ben Leggiero on 2020-08-02.

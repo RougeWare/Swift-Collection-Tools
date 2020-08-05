@@ -1,5 +1,5 @@
 //
-//  Collection + sequentialPairs Tests.swift
+//  Sequence + sequentialPairs Tests.swift
 //  
 //
 //  Created by Ben Leggiero on 2020-08-02.
@@ -21,4 +21,9 @@ final class Collection_plus_sequentialPairs_Tests: XCTestCase {
         XCTAssertEqual(pairs[2].0, "C"); XCTAssertEqual(pairs[2].1, "D")
         XCTAssertEqual(pairs[3].0, "D"); XCTAssertEqual(pairs[3].1, "E")
     }
+    
+    
+    static var allTests = [
+        ("test_sequentialPairs", test_sequentialPairs),
+    ]
 }
