@@ -11,7 +11,7 @@ import CollectionTools
 
 
 
-final class Collection_plus_sequentialPairs_Tests: XCTestCase {
+final class Sequence_plus_sequentialPairs_Tests: XCTestCase {
     
     func test_sequentialPairs() {
         let pairs = Array(["A", "B", "C", "D", "E"].sequentialPairs)

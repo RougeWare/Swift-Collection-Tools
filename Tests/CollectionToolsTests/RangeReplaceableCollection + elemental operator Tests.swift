@@ -11,7 +11,7 @@ import CollectionTools
 
 
 
-final class Collection_plus_elemental_operator_Tests: XCTestCase {
+final class RangeReplaceableCollection_plus_elemental_operator_Tests: XCTestCase {
     
     func test_plus() {
         let fibonacciUpTo5 = [0, 1, 1, 2, 3, 5]
