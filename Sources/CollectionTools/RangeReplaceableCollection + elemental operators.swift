@@ -1,8 +1,9 @@
 //
 //  RangeReplaceableCollection + elemental operators.swift
-//  
+//  CollectionTools
 //
 //  Created by Ben Leggiero on 2020-08-04.
+//  Copyright © 2020 Ben Leggiero BH-1-PS
 //
 
 import Foundation
