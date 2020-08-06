@@ -1,8 +1,9 @@
 //
-//  Collection + sequentialPairs Tests.swift
-//  
+//  Sequence + sequentialPairs Tests.swift
+//  CollectionTools
 //
 //  Created by Ben Leggiero on 2020-08-02.
+//  Copyright © 2020 Ben Leggiero BH-1-PS
 //
 
 import XCTest
@@ -10,7 +11,7 @@ import CollectionTools
 
 
 
-final class Collection_plus_sequentialPairs_Tests: XCTestCase {
+final class Sequence_plus_sequentialPairs_Tests: XCTestCase {
     
     func test_sequentialPairs() {
         let pairs = Array(["A", "B", "C", "D", "E"].sequentialPairs)
@@ -21,4 +22,9 @@ final class Collection_plus_sequentialPairs_Tests: XCTestCase {
         XCTAssertEqual(pairs[2].0, "C"); XCTAssertEqual(pairs[2].1, "D")
         XCTAssertEqual(pairs[3].0, "D"); XCTAssertEqual(pairs[3].1, "E")
     }
+    
+    
+    static var allTests = [
+        ("test_sequentialPairs", test_sequentialPairs),
+    ]
 }
