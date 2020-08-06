@@ -12,7 +12,7 @@ import Foundation
 
 public extension Collection {
     
-    /// Iff this collection is empty, this returns `nil`. Else, it just returns itself
+    /// Iff this collection is empty, this returns `nil`. Else, it just returns the collection unmodified
     ///
     /// ```swift
     /// return results.nonEmptyOrNil ?? backupResults

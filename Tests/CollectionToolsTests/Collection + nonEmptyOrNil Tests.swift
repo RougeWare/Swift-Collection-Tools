@@ -25,6 +25,10 @@ final class Collection_plus_nonEmptyOrNil_Tests: XCTestCase {
         XCTAssertNotNil(([1] as Set).nonEmptyOrNil)
         XCTAssertNotNil(([1, 2] as Set).nonEmptyOrNil)
         XCTAssertNotNil("I'm not empty".nonEmptyOrNil)
+        
+        
+        XCTAssertNil([1, 3, 5, 7].filter(\.isEven).nonEmptyOrNil)
+        XCTAssertNotNil([1, 2, 3, 4].filter(\.isEven).nonEmptyOrNil)
     }
     
     
