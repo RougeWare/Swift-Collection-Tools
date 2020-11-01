@@ -12,7 +12,8 @@ import FunctionTools
 
 
 
-public extension Collection {
+public extension Sequence {
+    
     /// Returns an array containing the results of mapping the given closure over the sequence’s elements.
     ///
     /// In this example, map is used first to convert the names in the array to lowercase strings
@@ -26,8 +27,8 @@ public extension Collection {
     /// - Parameter mapper: Accepts an element of this sequence as its parameter and returns a function which generates
     ///                     a transformed value of the same or of a different type.
     func map<ElementOfResult>(_ mapper: @escaping Transformer<Element, () -> ElementOfResult>)
-    -> [ElementOfResult] {
-        map {
+    -> LazyMapSequence<Self, ElementOfResult> {
+        lazy.map {
             mapper($0)()
         }
     }
@@ -53,20 +54,5 @@ where Self: RangeReplaceableCollection
             new.append(mapper($0)())
         }
         return new
-    }
-}
-
-
-
-public extension LazySequenceProtocol {
-    
-    /// Returns an array containing the results of mapping the given closure over the sequence’s elements.
-    ///
-    /// - Parameter mapper: Accepts an element of this sequence as its parameter and returns a function which generates
-    ///                     a transformed value of the same or of a different type.
-    func map<Result>(_ mapper: @escaping Transformer<Element, Generator<Result>>) -> LazyMapSequence<Elements, Result> {
-        self.map {
-            mapper($0)()
-        }
     }
 }
