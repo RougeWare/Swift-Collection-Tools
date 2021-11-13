@@ -52,6 +52,7 @@ public extension CollectionWhichCanBeEmpty {
 // MARK: - Default conformances
 
 extension Array: CollectionWhichCanBeEmpty {}
-extension Set: CollectionWhichCanBeEmpty {}
+extension Data: CollectionWhichCanBeEmpty {}
 extension Dictionary: CollectionWhichCanBeEmpty {}
+extension Set: CollectionWhichCanBeEmpty {}
 extension String: CollectionWhichCanBeEmpty {}
