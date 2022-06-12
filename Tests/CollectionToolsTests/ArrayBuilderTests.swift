@@ -10,33 +10,29 @@ import CollectionTools
 
 
 
-func build<Element>(@ArrayBuilder<Element> _ builder: () -> [Element]) -> [Element] { builder() }
-
-
-
 final class ArrayBuilderTests: XCTestCase {
     
     func testEmpty() {
-        XCTAssertEqual([Int](), build {})
+        XCTAssertEqual([Int](), .init {})
     }
     
     
     func testSingle() {
-        XCTAssertEqual([1], build { 1 })
-        XCTAssertEqual(["1"], build { "1" })
-        XCTAssertEqual([nil] as [Int?], build { nil as Int? })
+        XCTAssertEqual([1], .init { 1 })
+        XCTAssertEqual(["1"], .init { "1" })
+        XCTAssertEqual([nil] as [Int?], .init { nil as Int? })
     }
     
     
     func testArray() {
-        XCTAssertEqual([1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([1, 2, 3, 4, 5, 6], .init {
             [1, 2, 3, 4, 5, 6]
         })
     }
     
     
     func testArrays() {
-        XCTAssertEqual([1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([1, 2, 3, 4, 5, 6], .init {
             [1, 2, 3]
             [4, 5, 6]
         })
@@ -44,7 +40,7 @@ final class ArrayBuilderTests: XCTestCase {
     
     
     func testVariableNumberOfElements() {
-        XCTAssertEqual([1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([1, 2, 3, 4, 5, 6], .init {
             1
             2
             3
@@ -53,7 +49,7 @@ final class ArrayBuilderTests: XCTestCase {
             6
         })
         
-        XCTAssertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], build {
+        XCTAssertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], .init {
             1
             2
             3
@@ -82,7 +78,7 @@ final class ArrayBuilderTests: XCTestCase {
         
         let three = 3
         
-        XCTAssertEqual([1, 3], build {
+        XCTAssertEqual([1, 3], .init {
             if true {
                 1
             }
@@ -100,7 +96,7 @@ final class ArrayBuilderTests: XCTestCase {
     
     
     func testLimitedAvailability() {
-        XCTAssertEqual([1, 4], build {
+        XCTAssertEqual([1, 4], .init {
             if #available(iOS 1, macOS 1, macCatalyst 1, tvOS 1, watchOS 1, Windows 1, OpenBSD 1, *) {
                 1
             }
@@ -128,7 +124,7 @@ final class ArrayBuilderTests: XCTestCase {
                 [5, 5, 5, 5, 5],
                 [6, 6, 6, 6, 6]
             ],
-            build {
+            .init {
                 [1, 1, 1, 1, 1]
                 [2, 2, 2, 2, 2]
                 [3, 3, 3, 3, 3]
@@ -161,7 +157,7 @@ final class ArrayBuilderTests: XCTestCase {
                 [19, 19, 19, 19, 19],
                 [20, 20, 20, 20, 20]
             ] as [[Int]],
-            build {
+            .init {
                 [1, 1, 1, 1, 1]
                 [2, 2, 2, 2, 2]
                 [3, 3, 3, 3, 3]
@@ -192,7 +188,7 @@ final class ArrayBuilderTests: XCTestCase {
         let seven = 7
         let eleven = 11
         
-        XCTAssertEqual([1, 3, 7, 11], build {
+        XCTAssertEqual([1, 3, 7, 11], .init {
             if true {
                 1
             }
@@ -234,14 +230,14 @@ final class ArrayBuilderTests: XCTestCase {
     
     
     func testArrayThenElements() {
-        XCTAssertEqual([1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([1, 2, 3, 4, 5, 6], .init {
             [1, 2, 3]
             4
             5
             6
         })
         
-        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6], .init {
             0
             [1, 2, 3]
             4
@@ -249,7 +245,7 @@ final class ArrayBuilderTests: XCTestCase {
             6
         })
         
-        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6], build {
+        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6], .init {
             0
             1
             [2, 3, 4]
@@ -257,7 +253,7 @@ final class ArrayBuilderTests: XCTestCase {
             6
         })
         
-        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8], build {
+        XCTAssertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8], .init {
             0
             1
             2
