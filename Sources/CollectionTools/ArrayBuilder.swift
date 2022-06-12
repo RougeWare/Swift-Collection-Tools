@@ -9,6 +9,26 @@ import Foundation
 
 
 
+/// Build an array with DSL-style syntax
+///
+/// This can be used to great effect when needing to use logic while building an array, like this:
+///
+/// ```
+/// func buildTabs(@ArrayBuilder _ builder: () -> Tab) -> { builder() }
+///
+/// self.tabsArray = buildTabs {
+///    homeTab
+///    searchTab
+///
+///     if !isGuestMode {
+///         profileTab
+///     }
+///
+///     settingsTab
+/// }
+/// ```
+///
+/// - Parameter builder: The result-builder block
 @resultBuilder
 public struct ArrayBuilder<Element> {
     
@@ -123,4 +143,31 @@ public struct ArrayBuilder<Element> {
 //            }
 //        }
 //    }
+}
+
+
+
+public extension Array {
+    
+    /// Build an array with DSL-style syntax
+    ///
+    /// This can be used to great effect when needing to use logic while building an array, like this:
+    ///
+    /// ```
+    /// self.tabsArray = Array {
+    ///    homeTab
+    ///    searchTab
+    ///
+    ///     if !isGuestMode {
+    ///         profileTab
+    ///     }
+    ///
+    ///     settingsTab
+    /// }
+    /// ```
+    ///
+    /// - Parameter builder: The result-builder block
+    init(@ArrayBuilder<Element> _ builder: () -> Self) {
+        self = builder()
+    }
 }
