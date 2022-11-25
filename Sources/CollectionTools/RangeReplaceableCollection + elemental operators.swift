@@ -57,4 +57,28 @@ public extension RangeReplaceableCollection {
     static func +=(_ collection: inout Self, _ newElement: Element) {
         collection += [newElement]
     }
+    
+    
+    /// Creates a new collection by prepending the given element onto the end of the collection.
+    ///
+    /// The first argument's `Element` type must be the same type as the second element. For example, you can
+    /// prepend an integer onto an integer array.
+    ///
+    /// ```swift
+    /// let fibonacciUpTo5 = [1, 1, 2, 3, 5]
+    /// let fibonacciUpTo5_withZero = 0 + fibonacciUpTo5
+    /// print(fibonacciUpTo5_withZero)
+    /// // Prints "[0, 1, 1, 2, 3, 5]"
+    /// ```
+    ///
+    /// The resulting collection has the type of the argument on the right-hand side. In the example above,
+    /// `fibonacciUpTo5_withZero` has the same type as `fibonacciUpTo5`, which is `[Int]`.
+    ///
+    /// - Parameters:
+    ///   - newElement: An element to go at the beginning of the new collection
+    ///   - collection: A range-replaceable collection.
+    @inline(__always)
+    static func +(_ newElement: Element, _ collection: Self) -> Self {
+        [newElement] + collection
+    }
 }
