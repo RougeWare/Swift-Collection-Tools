@@ -13,7 +13,7 @@ import CollectionTools
 
 final class RangeReplaceableCollection_plus_elemental_operator_Tests: XCTestCase {
     
-    func test_plus() {
+    func test_plusAppend() {
         let fibonacciUpTo5 = [0, 1, 1, 2, 3, 5]
         let fibonacciUpTo8 = fibonacciUpTo5 + 8
         XCTAssertEqual(fibonacciUpTo5, [0, 1, 1, 2, 3, 5])
@@ -29,8 +29,17 @@ final class RangeReplaceableCollection_plus_elemental_operator_Tests: XCTestCase
     }
     
     
+    func test_plusPrepend() {
+        let fibonacciUpTo5 = [1, 1, 2, 3, 5]
+        let fibonacciUpTo5_withZero = 0 + fibonacciUpTo5
+        XCTAssertEqual(fibonacciUpTo5, [1, 1, 2, 3, 5])
+        XCTAssertEqual(fibonacciUpTo5_withZero, [0, 1, 1, 2, 3, 5])
+    }
+    
+    
     static var allTests = [
-        ("test_plus", test_plus),
+        ("test_plusAppend", test_plusAppend),
+        ("test_plusPrepend", test_plusPrepend),
         ("test_plusEquals", test_plusEquals),
     ]
 }
